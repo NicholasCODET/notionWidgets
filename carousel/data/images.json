@@ -1,0 +1,24 @@
+{
+    "images": [
+        { 
+            "src": "image1.jpg", 
+            "alt": "Description of image 1" 
+        },
+        { 
+            "src": "image2.jpg", 
+            "alt": "Description of image 2" 
+        },
+        { 
+            "src": "image3.jpg", 
+            "alt": "Description of image 3" 
+        },
+        { 
+            "src": "image4.jpg", 
+            "alt": "Description of image 4" 
+        },
+        { 
+            "src": "image5.jpg", 
+            "alt": "Description of image 5" 
+        }
+    ]
+}

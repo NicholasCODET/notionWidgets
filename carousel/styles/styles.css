@@ -1,0 +1,38 @@
+* {
+    background-color: transparent;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.carousel-container {
+    overflow-x: scroll;
+    white-space: nowrap;
+    padding: 4px;
+    outline: none;
+}
+
+.carousel {
+    display: inline-block;
+}
+
+.carousel img {
+    display: inline-block;
+    width: auto;
+    height: 200px; /* Adjust heigh for desktop view */
+    aspect-ratio: 1;
+    border-radius: 8px;
+    margin: 4px;
+}
+
+@media (max-width: 768px) {
+    .carousel img {
+        height: 150px; /* Adjust height for mobile view */
+        border-radius: 6px;
+    }
+}
