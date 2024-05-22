@@ -13,7 +13,7 @@ body {
 .carousel-container {
     overflow-x: scroll;
     white-space: nowrap;
-    padding: 0px;
+    padding: 0 -4px;
     outline: none;
 }
 
