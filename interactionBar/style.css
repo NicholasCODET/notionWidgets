@@ -1,7 +1,7 @@
 :root {
     --border-color-light: rgba(55, 53, 47, 0.16);
     --border-color-dark: rgba(255, 255, 255, 0.13);
-    --text-color-light: #rgb(55, 53, 47);
+    --text-color-light: rgba(55, 53, 47, 1);
     --text-color-dark: rgba(255, 255, 255, 0.81);
 }
 
@@ -20,11 +20,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 16px;
     width: 100%;
     max-width: 1000px;
     box-sizing: border-box;
     border-bottom: 1px solid var(--border-color-light);
+    border-top: 1px solid var(--border-color-light);
+
 }
 
 .left-section, .right-section {

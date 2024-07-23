@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     let clapCount = localStorage.getItem('clapCount') ? parseInt(localStorage.getItem('clapCount')) : 0;
     let hasClapped = localStorage.getItem('hasClapped') === 'true';
+    let viewCount = localStorage.getItem('viewCount') ? parseInt(localStorage.getItem('viewCount')) : 0;
 
     const clapButton = document.getElementById('clap-button');
     const clapScore = document.getElementById('clap-score');
@@ -23,31 +24,20 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('hasClapped', hasClapped);
     });
 
-    // Update view count from backend
+    // Update view count
     function updateViewCount() {
-        fetch('https://api.mockendpoint.com/view-count')  // Replace with your actual API endpoint
-            .then(response => response.json())
-            .then(data => {
-                const viewCount = data.viewCount;
-                viewCountDisplay.textContent = `Views: ${viewCount}`;
-            })
-            .catch(error => console.error('Error fetching view count:', error));
+        viewCount++;
+        viewCountDisplay.textContent = `Views: ${viewCount}`;
+        localStorage.setItem('viewCount', viewCount);
     }
 
-    // Increment view count on backend
-    function incrementViewCount() {
-        fetch('https://api.mockendpoint.com/increment-view-count', {  // Replace with your actual API endpoint
-            method: 'POST'
-        })
-        .then(response => response.json())
-        .then(data => {
-            const viewCount = data.viewCount;
-            viewCountDisplay.textContent = `Views: ${viewCount}`;
-        })
-        .catch(error => console.error('Error incrementing view count:', error));
+    // Increment view count if not already incremented in this session
+    if (!sessionStorage.getItem('hasVisited')) {
+        updateViewCount();
+        sessionStorage.setItem('hasVisited', 'true');
     }
 
-    // Detect Notion theme
+    // Function to detect and apply Notion theme
     function detectNotionTheme() {
         const notionBody = window.parent.document.body;
         const isDarkMode = notionBody.classList.contains('dark');
@@ -64,8 +54,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Listen for changes in the Notion theme
     const observer = new MutationObserver(detectNotionTheme);
     observer.observe(window.parent.document.body, { attributes: true, attributeFilter: ['class'] });
-
-    // Initial view count update and increment
-    updateViewCount();
-    incrementViewCount();
 });
