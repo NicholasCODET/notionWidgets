@@ -34,19 +34,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateViewCount();
 
-    // Theme detection and adjustment
-    function applyTheme() {
-        const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        if (prefersDarkScheme) {
+    // Function to detect and apply Notion theme
+    function detectNotionTheme() {
+        const notionBody = window.parent.document.body;
+        const isDarkMode = notionBody.classList.contains('dark');
+        if (isDarkMode) {
             document.body.classList.add('dark-mode');
         } else {
             document.body.classList.remove('dark-mode');
         }
     }
 
-    // Initial theme application
-    applyTheme();
+    // Initial theme detection
+    detectNotionTheme();
 
-    // Listen for changes in the theme
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', applyTheme);
+    // Listen for changes in the Notion theme
+    const observer = new MutationObserver(detectNotionTheme);
+    observer.observe(window.parent.document.body, { attributes: true, attributeFilter: ['class'] });
 });
