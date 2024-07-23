@@ -1,15 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     let clapCount = localStorage.getItem('clapCount') ? parseInt(localStorage.getItem('clapCount')) : 0;
     let hasClapped = localStorage.getItem('hasClapped') === 'true';
-    let viewCount = localStorage.getItem('viewCount') ? parseInt(localStorage.getItem('viewCount')) : 0;
 
     const clapButton = document.getElementById('clap-button');
     const clapScore = document.getElementById('clap-score');
     const viewCountDisplay = document.getElementById('view-count');
 
-    // Set initial counts
+    // Set initial clap count
     clapScore.textContent = clapCount;
-    viewCountDisplay.textContent = `Views: ${viewCount}`;
 
     // Handle clap button click
     clapButton.addEventListener('click', () => {
@@ -25,16 +23,31 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('hasClapped', hasClapped);
     });
 
-    // Update view count
+    // Update view count from backend
     function updateViewCount() {
-        viewCount++;
-        viewCountDisplay.textContent = `Views: ${viewCount}`;
-        localStorage.setItem('viewCount', viewCount);
+        fetch('https://api.mockendpoint.com/view-count')  // Replace with your actual API endpoint
+            .then(response => response.json())
+            .then(data => {
+                const viewCount = data.viewCount;
+                viewCountDisplay.textContent = `Views: ${viewCount}`;
+            })
+            .catch(error => console.error('Error fetching view count:', error));
     }
 
-    updateViewCount();
+    // Increment view count on backend
+    function incrementViewCount() {
+        fetch('https://api.mockendpoint.com/increment-view-count', {  // Replace with your actual API endpoint
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            const viewCount = data.viewCount;
+            viewCountDisplay.textContent = `Views: ${viewCount}`;
+        })
+        .catch(error => console.error('Error incrementing view count:', error));
+    }
 
-    // Function to detect and apply Notion theme
+    // Detect Notion theme
     function detectNotionTheme() {
         const notionBody = window.parent.document.body;
         const isDarkMode = notionBody.classList.contains('dark');
@@ -51,4 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Listen for changes in the Notion theme
     const observer = new MutationObserver(detectNotionTheme);
     observer.observe(window.parent.document.body, { attributes: true, attributeFilter: ['class'] });
+
+    // Initial view count update and increment
+    updateViewCount();
+    incrementViewCount();
 });
