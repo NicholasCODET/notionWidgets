@@ -11,7 +11,13 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     color: var(--text-color-light);
+    background-color: var(--background-color-light);
 }
 
 .interactive-bar {
@@ -19,10 +25,11 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: var(--background-color-light);
-    border-bottom: 1px solid var(--border-color-light);
     width: 100%;
     box-sizing: border-box;
+    height: 100%;
+    background-color: var(--background-color-light);
+    border-bottom: 1px solid var(--border-color-light);
 }
 
 .left-section, .right-section {
@@ -51,9 +58,10 @@ button:focus {
     align-items: center;
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
     body {
         color: var(--text-color-dark);
+        background-color: var(--background-color-dark);
     }
 
     .interactive-bar {
