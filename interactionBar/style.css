@@ -11,9 +11,8 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     color: var(--text-color-light);
@@ -26,8 +25,8 @@ body {
     align-items: center;
     padding: 10px 20px;
     width: 100%;
+    max-width: 1000px;
     box-sizing: border-box;
-    height: 100%;
     background-color: var(--background-color-light);
     border-bottom: 1px solid var(--border-color-light);
 }
@@ -58,14 +57,12 @@ button:focus {
     align-items: center;
 }
 
-@media (prefers-color-scheme: dark) {
-    body {
-        color: var(--text-color-dark);
-        background-color: var(--background-color-dark);
-    }
+.dark-mode {
+    color: var(--text-color-dark);
+    background-color: var(--background-color-dark);
+}
 
-    .interactive-bar {
-        background-color: var(--background-color-dark);
-        border-bottom: 1px solid var(--border-color-dark);
-    }
+.dark-mode .interactive-bar {
+    background-color: var(--background-color-dark);
+    border-bottom: 1px solid var(--border-color-dark);
 }
